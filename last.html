@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Anniversary - Celebrating Our Love</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500&family=Quicksand:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            overflow-x: hidden;
+        }
+        
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeInUp 1.2s ease-out forwards;
+        }
+        
+        .fade-in-image {
+            opacity: 0;
+            transform: translateY(50px);
+            animation: fadeInImage 1.5s ease-out forwards;
+        }
+        
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeInImage {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .delay-1 {
+            animation-delay: 1.8s;
+        }
+        
+        .delay-2 {
+            animation-delay: 3.2s;
+        }
+        
+        /* Floating Hearts Animation */
+        .heart-rain {
+            position: fixed;
+            top: -50px;
+            pointer-events: none;
+            z-index: 1;
+            opacity: 0.6;
+        }
+        
+        .heart-fall {
+            animation: fall linear infinite;
+        }
+        
+        @keyframes fall {
+            0% {
+                transform: translateY(-100vh) rotate(0deg);
+                opacity: 0.8;
+            }
+            10% {
+                opacity: 1;
+            }
+            90% {
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(100vh) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        /* Custom text styling */
+        .elegant-text {
+            font-family: 'Poppins', sans-serif;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            line-height: 1.6;
+        }
+        
+        .heart-pulse {
+            animation: heartPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes heartPulse {
+            0%, 100% {
+                transform: scale(1);
+            }
+            50% {
+                transform: scale(1.1);
+            }
+        }
+        
+        /* Pink heading styling */
+        .pink-heading {
+            background: linear-gradient(135deg, #ec4899, #f472b6, #fb7185);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            font-weight: 500;
+            text-shadow: 0 2px 4px rgba(236, 72, 153, 0.2);
+            animation: shimmer 3s ease-in-out infinite;
+        }
+        
+        @keyframes shimmer {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+    </style>
+</head>
+<body class="bg-white min-h-screen flex flex-col items-center justify-center relative">
+    
+    <!-- Floating Hearts Background Animation -->
+    <div id="heartRain" class="fixed inset-0 pointer-events-none z-0"></div>
+    
+    <!-- Main Content Container -->
+    <div class="relative z-10 flex flex-col items-center justify-center min-h-screen px-4 py-8">
+        
+        <!-- Pink Heading -->
+        <div class="mb-8 md:mb-12 fade-in-up">
+            <h1 class="pink-heading text-3xl md:text-4xl lg:text-5xl xl:text-6xl text-center font-bold tracking-wider">
+                Happy Anniversary
+            </h1>
+        </div>
+        
+        <!-- Image Container -->
+        <div class="mb-8 md:mb-12">
+            <img 
+                id="anniversaryImage" 
+                src="./last.png" 
+                alt="Anniversary Celebration" 
+                class="fade-in-image w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 object-cover rounded-2xl shadow-2xl"
+            >
+        </div>
+        
+        <!-- Text Lines Container -->
+        <div class="text-center space-y-4 md:space-y-6 max-w-md md:max-w-lg">
+            
+            <!-- Line 1 -->
+            <div class="fade-in-up delay-1">
+                <p class="elegant-text text-lg md:text-xl lg:text-2xl text-gray-700">
+                    Another year of beautiful memories...
+                </p>
+            </div>
+            
+            <!-- Line 2 -->
+            <div class="fade-in-up delay-2">
+                <p class="elegant-text font-medium text-2xl md:text-3xl lg:text-4xl text-red-600 flex items-center justify-center gap-2" style="margin-top: 1.5rem; font-weight: 500;">
+                    Forever yours, always 
+                    <span class="heart-pulse text-red-500 text-3xl md:text-5xl">❤️</span>
+                </p>
+            </div>
+            
+        </div>
+        
+    </div>
+    <audio id="bgMusic" loop>
+  <source src="romantic1.mp3" type="audio/mpeg">
+</audio>
+
+    <script>
+        let musicStarted = false;
+
+function startMusic() {
+  if (musicStarted) return;
+
+  const bgMusic = document.getElementById("bgMusic");
+  if (bgMusic) {
+    bgMusic.volume = 0.5;
+    bgMusic.play().then(() => {
+      musicStarted = true;
+      console.log("Music started");
+    }).catch((err) => {
+      console.warn("Music autoplay blocked:", err);
+    });
+  }
+}
+
+document.body.addEventListener("click", startMusic, { once: true });
+document.body.addEventListener("touchstart", startMusic, { once: true });
+
+        // Floating Hearts Animation
+        function createHeartRain() {
+            const heartRainContainer = document.getElementById('heartRain');
+            
+            // Create SVG Heart elements
+            function createHeartSVG() {
+                const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg');
+                svg.setAttribute('width', '24');
+                svg.setAttribute('height', '24');
+                svg.setAttribute('viewBox', '0 0 24 24');
+                svg.innerHTML = `
+                    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" 
+                          fill="#f59e0b" 
+                          opacity="0.7"/>
+                `;
+                return svg;
+            }
+            
+            function createFallingHeart() {
+                const heartElement = document.createElement('div');
+                heartElement.className = 'heart-rain heart-fall';
+                heartElement.appendChild(createHeartSVG());
+                
+                // Random horizontal position
+                heartElement.style.left = Math.random() * 100 + 'vw';
+                
+                // Random animation duration between 8-15 seconds
+                const duration = Math.random() * 7 + 8;
+                heartElement.style.animationDuration = duration + 's';
+                
+                // Random delay
+                heartElement.style.animationDelay = Math.random() * 2 + 's';
+                
+                heartRainContainer.appendChild(heartElement);
+                
+                // Remove element after animation completes
+                setTimeout(() => {
+                    if (heartElement.parentNode) {
+                        heartElement.parentNode.removeChild(heartElement);
+                    }
+                }, (duration + 2) * 1000);
+            }
+            
+            // Create initial hearts
+            for (let i = 0; i < 8; i++) {
+                setTimeout(createFallingHeart, i * 800);
+            }
+            
+            // Continue creating hearts every 2 seconds
+            setInterval(createFallingHeart, 2000);
+        }
+        
+        // Error handling for image loading
+        document.getElementById('anniversaryImage').addEventListener('error', function() {
+            // If image fails to load, create a placeholder with Anniversary design
+            this.style.display = 'none';
+            const placeholder = document.createElement('div');
+            placeholder.className = 'fade-in-image w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96 bg-gradient-to-br from-pink-200 to-red-200 rounded-2xl shadow-2xl flex items-center justify-center';
+            placeholder.innerHTML = `
+                <div class="text-center">
+                    <div class="text-6xl mb-2">💕</div>
+                    <p class="text-gray-600 elegant-text">Anniversary</p>
+                </div>
+            `;
+            this.parentNode.appendChild(placeholder);
+        });
+        
+        // Initialize animations when page loads
+        window.addEventListener('load', function() {
+            // Start floating animation after a short delay
+            setTimeout(createHeartRain, 1000);
+        });
+        
+        // Add subtle parallax effect on scroll (optional enhancement)
+        window.addEventListener('scroll', function() {
+            const scrolled = window.pageYOffset;
+            const heartElements = document.querySelectorAll('.heart-rain');
+            heartElements.forEach(heart => {
+                heart.style.transform = `translateY(${scrolled * 0.2}px)`;
+            });
+        });
+    </script>
+
+</body>
+</html>

@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Journey Together ❤️</title>
+    <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@400;700&family=Poppins:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #ffeef8 0%, #f8e8ff 50%, #e8d5ff 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Floating heart emojis in background */
+        .floating-hearts {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 1.2rem;
+            opacity: 0.5;
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px) rotate(0deg);
+                opacity: 0.5;
+            }
+            50% {
+                transform: translateY(-15px) rotate(3deg);
+                opacity: 0.7;
+            }
+        }
+
+        /* Main container - Made smaller for desktop */
+        .container {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 2rem 1.5rem;
+            border-radius: 25px;
+            box-shadow: 0 15px 45px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            max-width: 480px;
+            width: 85%;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            transition: all 0.5s ease;
+        }
+
+        .container.fade-out {
+            opacity: 0;
+            transform: scale(0.95);
+        }
+
+        /* Typography - Reduced sizes */
+        .main-heading {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.8rem;
+            color: #d63384;
+            margin-bottom: 0.8rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: 700;
+        }
+
+        .sub-heading {
+            font-family: 'Dancing Script', cursive;
+            font-size: 1.4rem;
+            color: #6f42c1;
+            margin-bottom: 1.8rem;
+            font-weight: 400;
+        }
+
+        /* Timer container - Smaller grid */
+        .timer-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8rem;
+            margin: 1.5rem 0;
+        }
+
+        .time-unit {
+            background: linear-gradient(135deg, #fff 0%, #f8f9ff 100%);
+            padding: 1rem 0.8rem;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid rgba(214, 51, 132, 0.1);
+            transition: all 0.3s ease;
+        }
+
+        .time-unit:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.12);
+        }
+
+        .time-number {
+            font-size: 1.8rem;
+            font-weight: 500;
+            color: #d63384;
+            display: block;
+            margin-bottom: 0.3rem;
+        }
+
+        .time-label {
+            font-size: 0.75rem;
+            color: #6c757d;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            font-weight: 300;
+        }
+
+        /* Continue button - Smaller */
+        .continue-btn {
+            background: linear-gradient(135deg, #ff6b9d 0%, #d63384 50%, #c2185b 100%);
+            color: white;
+            border: none;
+            padding: 0.8rem 2.5rem;
+            font-size: 1rem;
+            border-radius: 40px;
+            cursor: pointer;
+            font-family: 'Poppins', sans-serif;
+            font-weight: 500;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 8px 25px rgba(214, 51, 132, 0.3);
+            transition: all 0.3s ease;
+            margin-top: 1.5rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .continue-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+            transition: left 0.5s;
+        }
+
+        .continue-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 12px 35px rgba(214, 51, 132, 0.4);
+        }
+
+        .continue-btn:hover::before {
+            left: 100%;
+        }
+
+        .continue-btn:active {
+            transform: translateY(-1px);
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.8rem 1.2rem;
+                margin: 1rem;
+                max-width: 400px;
+            }
+
+            .main-heading {
+                font-size: 2.4rem;
+            }
+
+            .sub-heading {
+                font-size: 1.2rem;
+            }
+
+            .timer-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 0.6rem;
+            }
+
+            .time-unit {
+                padding: 0.8rem 0.6rem;
+            }
+
+            .time-number {
+                font-size: 1.5rem;
+            }
+
+            .continue-btn {
+                padding: 0.7rem 2rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                max-width: 320px;
+                padding: 1.5rem 1rem;
+            }
+
+            .main-heading {
+                font-size: 2rem;
+            }
+
+            .sub-heading {
+                font-size: 1.1rem;
+            }
+
+            .timer-container {
+                grid-template-columns: 1fr;
+                gap: 0.5rem;
+            }
+
+            .time-number {
+                font-size: 1.4rem;
+            }
+
+            .time-label {
+                font-size: 0.7rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating hearts background -->
+    <div class="floating-hearts" id="floatingHearts"></div>
+
+    <!-- Main content container -->
+    <div class="container" id="mainContainer">
+        <h1 class="main-heading">Our Journey Together ❤️</h1>
+        <p class="sub-heading">We've been together for...</p>
+        
+        <!-- Timer display -->
+        <div class="timer-container">
+            <div class="time-unit">
+                <span class="time-number" id="years">0</span>
+                <span class="time-label">Years</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="months">0</span>
+                <span class="time-label">Months</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="days">0</span>
+                <span class="time-label">Days</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="hours">0</span>
+                <span class="time-label">Hours</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="minutes">0</span>
+                <span class="time-label">Minutes</span>
+            </div>
+            <div class="time-unit">
+                <span class="time-number" id="seconds">0</span>
+                <span class="time-label">Seconds</span>
+            </div>
+        </div>
+
+        <!-- Continue button -->
+        <button class="continue-btn" onclick="continueTo()">Continue ❤️</button>
+    </div>
+    <audio id="bgMusic" loop>
+  <source src="romantic3.mp3" type="audio/mpeg">
+</audio>
+
+    <script>
+        let musicStarted = false;
+
+function startMusic() {
+  if (musicStarted) return;
+
+  const bgMusic = document.getElementById("bgMusic");
+  if (bgMusic) {
+    bgMusic.volume = 0.5;
+    bgMusic.play().then(() => {
+      musicStarted = true;
+      console.log("Music started");
+    }).catch((err) => {
+      console.warn("Music autoplay blocked:", err);
+    });
+  }
+}
+
+document.body.addEventListener("click", startMusic, { once: true });
+document.body.addEventListener("touchstart", startMusic, { once: true });
+
+        // ==================== CONFIGURATION ====================
+        // CHANGE THIS DATE to your relationship start date and time
+        const startDate = new Date("2020-02-14 18:30:00"); // YYYY-MM-DD HH:MM:SS format
+        
+        // CHANGE THIS URL to where you want the button to redirect
+        const nextPageUrl = "last.html"; // Change to your desired next page
+        // ======================================================
+
+        // Create floating hearts in background
+        function createFloatingHearts() {
+            const heartsContainer = document.getElementById('floatingHearts');
+            const heartEmojis = ['❤️', '💕', '💖', '💗', '💝', '💘'];
+            
+            // Create 12 floating hearts (reduced from 15)
+            for (let i = 0; i < 12; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                
+                // Random positioning
+                heart.style.left = Math.random() * 100 + 'vw';
+                heart.style.top = Math.random() * 100 + 'vh';
+                
+                // Random animation delay
+                heart.style.animationDelay = Math.random() * 6 + 's';
+                
+                // Random size variation (slightly smaller)
+                const size = 0.7 + Math.random() * 0.5;
+                heart.style.fontSize = size + 'rem';
+                
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Calculate time difference and update display
+        function updateTimer() {
+            const now = new Date();
+            const timeDiff = now - startDate;
+
+            // Calculate time units
+            const totalSeconds = Math.floor(timeDiff / 1000);
+            const totalMinutes = Math.floor(totalSeconds / 60);
+            const totalHours = Math.floor(totalMinutes / 60);
+            const totalDays = Math.floor(totalHours / 24);
+
+            // Calculate years and months more accurately
+            let years = now.getFullYear() - startDate.getFullYear();
+            let months = now.getMonth() - startDate.getMonth();
+
+            if (months < 0) {
+                years--;
+                months += 12;
+            }
+
+            if (now.getDate() < startDate.getDate()) {
+                months--;
+                if (months < 0) {
+                    years--;
+                    months += 12;
+                }
+            }
+
+            // Calculate remaining days after years and months
+            const tempDate = new Date(startDate);
+            tempDate.setFullYear(startDate.getFullYear() + years);
+            tempDate.setMonth(startDate.getMonth() + months);
+            const remainingDays = Math.floor((now - tempDate) / (1000 * 60 * 60 * 24));
+
+            // Calculate remaining hours, minutes, seconds
+            const remainingHours = totalHours % 24;
+            const remainingMinutes = totalMinutes % 60;
+            const remainingSeconds = totalSeconds % 60;
+
+            // Update DOM elements
+            document.getElementById('years').textContent = years;
+            document.getElementById('months').textContent = months;
+            document.getElementById('days').textContent = remainingDays;
+            document.getElementById('hours').textContent = remainingHours;
+            document.getElementById('minutes').textContent = remainingMinutes;
+            document.getElementById('seconds').textContent = remainingSeconds;
+        }
+
+        // Continue button function with smooth transition
+        function continueTo() {
+            const container = document.getElementById('mainContainer');
+            
+            // Add fade-out class
+            container.classList.add('fade-out');
+            
+            // Wait for animation to complete, then redirect
+            setTimeout(() => {
+                window.location.href = nextPageUrl;
+            }, 500);
+        }
+
+        // Initialize the page
+        function init() {
+            createFloatingHearts();
+            updateTimer();
+            
+            // Update timer every second
+            setInterval(updateTimer, 1000);
+        }
+
+        // Start when page loads
+        window.addEventListener('load', init);
+
+        // Add some interactive effects
+        document.addEventListener('DOMContentLoaded', function() {
+            // Add subtle parallax effect to floating hearts
+            document.addEventListener('mousemove', function(e) {
+                const hearts = document.querySelectorAll('.heart');
+                const x = e.clientX / window.innerWidth;
+                const y = e.clientY / window.innerHeight;
+                
+                hearts.forEach((heart, index) => {
+                    const speed = (index % 3 + 1) * 0.3;
+                    heart.style.transform = `translate(${x * speed}px, ${y * speed}px)`;
+                });
+            });
+        });
+    </script>
+</body>
+</html>
